@@ -34,10 +34,10 @@ opt = parser.parse_args()
 if opt.use_gpu:
     os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu_id
 
-try:
-    os.makedirs(opt.save_patch)
-except OSError:
-    pass
+# try:
+#     os.makedirs(opt.save_patch)
+# except OSError:
+#     pass
 
 try:
     os.makedirs(opt.save_inputfake)
@@ -54,14 +54,14 @@ def is_image(img_name):
     else:
         return False
 
-def crop(img):
-    h, w, c = img.shape
-    p_h, p_w = opt.patch_size, opt.patch_size
-    rand_state = RandomState(66)
-    r = rand_state.randint(0, h - p_h)
-    c = rand_state.randint(0, w - p_w)
-    O = img[r: r + p_h, c : c + p_w]
-    return O,r,c
+# def crop(img):
+#     h, w, c = img.shape
+#     p_h, p_w = opt.patch_size, opt.patch_size
+#     rand_state = RandomState(66)
+#     r = rand_state.randint(0, h - p_h)
+#     c = rand_state.randint(0, w - p_w)
+#     O = img[r: r + p_h, c : c + p_w]
+#     return O,r,c
 
 def main():
     # Build model
@@ -84,7 +84,7 @@ def main():
             O_patch = O
             r, g, b = cv2.split(O)
             O = cv2.merge([b, g, r])
-            cv2.imwrite(os.path.join(opt.save_patch, img_name), np.uint8(255 * O))
+            # cv2.imwrite(os.path.join(opt.save_patch, img_name), np.uint8(255 * O))
 
             # crop gt image to 64*64
             B = cv2.imread(gt_path)
